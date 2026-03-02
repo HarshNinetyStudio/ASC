@@ -397,18 +397,18 @@ html { font-size: calc(0.625rem + 0.41666666666666663vw); }
 <script>
 $(document).ready( function() {
 	var swiper = new Swiper('.swiper-container', {
-		effect: 'coverflow', 		// Kind of slider effect
-		centeredSlides: true, 	// Force centered slide
-		slidesPerView: 'auto', 	// auto = the slide itself defined the viewport of the slider
-		allowTouchMove: true, 	// Allows more control options except Slide Next and Slide Prev
-		speed: 1000, 						// Speed of the change animation
-		loop: true,						 	// Looping the slides
-		mousewheel: true, 			// control the slider with mousewheel
+		effect: 'coverflow',
+		centeredSlides: true,
+		slidesPerView: 'auto',
+		allowTouchMove: true,
+		speed: 1000,
+		loop: true,
+		mousewheel: false,
     navigation: {
-    	nextEl: '.next', 			// Class for the Next Slide Button
-      prevEl: '.prev', 			// Class for the Previous Slide Button
+    	nextEl: '.next',
+      prevEl: '.prev',
     },
-		coverflowEffect: { 			// Properties for the coverflow effect
+		coverflowEffect: {
 			rotate: 0,
 			stretch: 0,
 			depth: 150,
@@ -416,6 +416,25 @@ $(document).ready( function() {
 			slideShadows : true,
     },
   });
+
+  // Scroll-driven swipe: scroll down = next slide, scroll up = prev slide
+  // Only triggers once per scroll gesture, then lets page scroll through
+  var swiperSection = document.querySelector('.swiper-container');
+  var scrollCooldown = false;
+  if (swiperSection) {
+    swiperSection.addEventListener('wheel', function(e) {
+      if (scrollCooldown) return;
+      if (Math.abs(e.deltaY) > 30) {
+        scrollCooldown = true;
+        if (e.deltaY > 0) {
+          swiper.slideNext();
+        } else {
+          swiper.slidePrev();
+        }
+        setTimeout(function() { scrollCooldown = false; }, 1200);
+      }
+    }, { passive: true });
+  }
 });
   document.addEventListener("DOMContentLoaded", function() {
     const lazyElements = document.querySelectorAll('[loading="lazy"]');
