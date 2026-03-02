@@ -96,6 +96,7 @@
       padding: 10px 12px;
     }
   }
+
 </style>
 
 </head><body class="body-3"><div id="cookie-banner">
@@ -442,4 +443,124 @@ $(document).ready( function() {
       element.removeAttribute("loading");
     });
   });
-</script></body></html>
+</script>
+<style>
+/* ===== RESPONSIVE SERVICE CARDS FIX (mobile-first) ===== */
+.body-3 {
+  overflow-x: hidden !important;
+}
+
+/* BASE: 1 column on mobile */
+.grid-5 {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  grid-template-rows: auto !important;
+  grid-template-areas: none !important;
+  gap: 12px !important;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+  padding: 0 !important;
+}
+
+.service-card {
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.service-card-title {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  font-size: 15px !important;
+}
+
+.service-card-paragraph {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  font-size: 13px !important;
+}
+
+.service-card img {
+  max-width: 50px !important;
+  height: auto !important;
+}
+
+/* 2 columns from 480px */
+@media screen and (min-width: 480px) {
+  .grid-5 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+  }
+  .service-card {
+    padding: 22px !important;
+  }
+  .service-card-title {
+    font-size: 15px !important;
+  }
+  .service-card-paragraph {
+    font-size: 12px !important;
+  }
+}
+
+/* 2 columns, more breathing room from 768px */
+@media screen and (min-width: 768px) {
+  .grid-5 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+    margin-left: 24px !important;
+    margin-right: 24px !important;
+  }
+  .service-card {
+    padding: 28px !important;
+  }
+  .service-card-title {
+    font-size: 16px !important;
+  }
+  .service-card-paragraph {
+    font-size: 13px !important;
+  }
+  .service-card img {
+    max-width: 60px !important;
+  }
+}
+
+/* 4 columns from 1100px */
+@media screen and (min-width: 1100px) {
+  .grid-5 {
+    grid-template-columns: 1fr 1fr 1fr 1fr !important;
+    gap: 16px !important;
+    margin-left: 40px !important;
+    margin-right: 40px !important;
+  }
+  .service-card {
+    padding: 35px !important;
+  }
+  .service-card-title {
+    font-size: 18px !important;
+  }
+  .service-card-paragraph {
+    font-size: 14px !important;
+  }
+}
+
+/* Large desktop */
+@media screen and (min-width: 1400px) {
+  .grid-5 {
+    margin-left: 50px !important;
+    margin-right: 50px !important;
+  }
+  .service-card {
+    padding: 45px !important;
+  }
+}
+/* ===== END RESPONSIVE SERVICE CARDS FIX ===== */
+</style>
+</body></html>
