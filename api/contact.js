@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-const LOGO_URL = 'https://www.aftersportsconsultancy.com/ASC%20Home_files/672e2e9462f9cc49db6c442b_Untitled%20design%20(5).png';
+const LOGO_URL = 'https://www.aftersportsconsultancy.com/asc-logo.png';
 
 // Simple validation helper
 function validateBody(body) {
