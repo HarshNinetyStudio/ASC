@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
-const path = require('path');
+
+const LOGO_URL = 'https://cdn.prod.website-files.com/672e05a3f928ec4b133860ae/672e2e9462f9cc49db6c442b_Untitled%20design%20(5).png';
 
 // Simple validation helper
 function validateBody(body) {
@@ -26,7 +27,7 @@ function buildNotificationEmail({ firstName, lastName, email, phone, message }) 
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background-color: #000000; padding: 20px; text-align: center;">
-        <img src="cid:asclogo" alt="ASC" style="height: 90px; margin-bottom: 8px;" />
+        <img src="${LOGO_URL}" alt="ASC" style="height: 90px; margin-bottom: 8px;" />
         <h1 style="color: #ffffff; margin: 0; font-size: 18px;">New Contact Form Submission</h1>
       </div>
       <div style="padding: 30px; background-color: #f9f9f9;">
@@ -60,7 +61,7 @@ function buildAutoReplyEmail(firstName) {
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background-color: #000000; padding: 20px; text-align: center;">
-        <img src="cid:asclogo" alt="ASC" style="height: 90px;" />
+        <img src="${LOGO_URL}" alt="ASC" style="height: 90px;" />
       </div>
       <div style="padding: 30px; background-color: #ffffff;">
         <h2 style="color: #333; margin-top: 0;">Thanks for contacting us!</h2>
@@ -85,18 +86,18 @@ function buildAutoReplyEmail(firstName) {
 }
 
 module.exports = async function handler(req, res) {
-  // Only allow POST
-  if (req.method !== 'POST') {
-    return res.status(405).json({ success: false, message: 'Method not allowed' });
-  }
-
-  // CORS headers
+  // CORS headers (must be set before any return)
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
+  }
+
+  // Only allow POST
+  if (req.method !== 'POST') {
+    return res.status(405).json({ success: false, message: 'Method not allowed' });
   }
 
   const body = req.body;
@@ -127,12 +128,6 @@ module.exports = async function handler(req, res) {
     }
   });
 
-  const logoAttachment = {
-    filename: 'asc-logo.png',
-    path: path.join(process.cwd(), 'ASC Home_files', '672e2e9462f9cc49db6c442b_Untitled design (5).png'),
-    cid: 'asclogo'
-  };
-
   try {
     // Send notification email to business
     await transporter.sendMail({
@@ -140,8 +135,7 @@ module.exports = async function handler(req, res) {
       to: process.env.NOTIFY_EMAIL,
       replyTo: email,
       subject: `New Contact Form Submission from ${firstName} ${lastName}`,
-      html: buildNotificationEmail({ firstName, lastName, email, phone, message }),
-      attachments: [logoAttachment]
+      html: buildNotificationEmail({ firstName, lastName, email, phone, message })
     });
 
     // Send auto-reply to submitter
@@ -149,8 +143,7 @@ module.exports = async function handler(req, res) {
       from: `"After Sports Consultancy" <${process.env.SMTP_USER}>`,
       to: email,
       subject: 'Thanks for contacting us - After Sports Consultancy',
-      html: buildAutoReplyEmail(firstName),
-      attachments: [logoAttachment]
+      html: buildAutoReplyEmail(firstName)
     });
 
     return res.status(200).json({ success: true, message: 'Your message has been sent successfully.' });
