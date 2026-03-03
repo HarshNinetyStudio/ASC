@@ -93,12 +93,6 @@ app.post('/api/contact', contactLimiter, contactValidation, async (req, res) => 
 
   const { firstName, lastName, email, phone, message } = req.body;
 
-  const logoAttachment = {
-    filename: 'asc-logo.png',
-    path: path.join(__dirname, 'ASC Home_files', '672e2e9462f9cc49db6c442b_Untitled design (5).png'),
-    cid: 'asclogo'
-  };
-
   try {
     // Send notification email to the business
     await transporter.sendMail({
@@ -106,8 +100,7 @@ app.post('/api/contact', contactLimiter, contactValidation, async (req, res) => 
       to: process.env.NOTIFY_EMAIL,
       replyTo: email,
       subject: `New Contact Form Submission from ${firstName} ${lastName}`,
-      html: buildNotificationEmail({ firstName, lastName, email, phone, message }),
-      attachments: [logoAttachment]
+      html: buildNotificationEmail({ firstName, lastName, email, phone, message })
     });
 
     // Send auto-reply to the submitter
@@ -115,8 +108,7 @@ app.post('/api/contact', contactLimiter, contactValidation, async (req, res) => 
       from: `"After Sports Consultancy" <${process.env.SMTP_USER}>`,
       to: email,
       subject: 'Thanks for contacting us - After Sports Consultancy',
-      html: buildAutoReplyEmail(firstName),
-      attachments: [logoAttachment]
+      html: buildAutoReplyEmail(firstName)
     });
 
     return res.json({
@@ -135,8 +127,9 @@ app.post('/api/contact', contactLimiter, contactValidation, async (req, res) => 
 function buildNotificationEmail({ firstName, lastName, email, phone, message }) {
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <div style="background-color: #000000; padding: 20px; text-align: center;">
-        <img src="cid:asclogo" alt="ASC" style="height: 90px; margin-bottom: 8px;" />
+      <div style="background-color: #000000; padding: 30px 20px; text-align: center;">
+        <div style="font-family: 'Georgia', 'Times New Roman', serif; color: #ffffff; font-size: 42px; font-weight: bold; letter-spacing: 10px; margin-bottom: 6px;">ASC</div>
+        <div style="font-family: Arial, sans-serif; color: #cccccc; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px;">After Sports Consultancy</div>
         <h1 style="color: #ffffff; margin: 0; font-size: 18px;">New Contact Form Submission</h1>
       </div>
       <div style="padding: 30px; background-color: #f9f9f9;">
@@ -169,8 +162,9 @@ function buildNotificationEmail({ firstName, lastName, email, phone, message }) 
 function buildAutoReplyEmail(firstName) {
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <div style="background-color: #000000; padding: 20px; text-align: center;">
-        <img src="cid:asclogo" alt="ASC" style="height: 90px;" />
+      <div style="background-color: #000000; padding: 30px 20px; text-align: center;">
+        <div style="font-family: 'Georgia', 'Times New Roman', serif; color: #ffffff; font-size: 42px; font-weight: bold; letter-spacing: 10px; margin-bottom: 6px;">ASC</div>
+        <div style="font-family: Arial, sans-serif; color: #cccccc; font-size: 10px; letter-spacing: 4px; text-transform: uppercase;">After Sports Consultancy</div>
       </div>
       <div style="padding: 30px; background-color: #ffffff;">
         <h2 style="color: #333; margin-top: 0;">Thanks for contacting us!</h2>
