@@ -563,6 +563,149 @@ $(document).ready( function() {
 }
 /* ===== END RESPONSIVE SERVICE CARDS FIX ===== */
 
+/* ===== RESPONSIVE CONTACT FORM FIX ===== */
+
+/* Fix underline alignment: ensure all fields stretch full width */
+.contact-text-wrapper {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Remove double padding from nested wrapper on Last Name field */
+.contact-text-wrapper .contact-text-wrapper {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.contact-form-grid .text-field {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Visible gap between the two columns at all widths */
+.contact-form-grid {
+  grid-column-gap: 40px !important;
+  grid-row-gap: 20px !important;
+}
+
+/* Mobile-first: stack form fields in single column on small screens */
+@media screen and (max-width: 991px) {
+  .container-8.footer {
+    padding: 2em 1.5em 0 !important;
+  }
+
+  .grid_item.footer-form {
+    width: 100% !important;
+    display: block !important;
+  }
+
+  .div-block-12 {
+    width: 100% !important;
+    padding-bottom: 3em !important;
+  }
+
+  .form-block {
+    width: 100% !important;
+  }
+
+  .form {
+    width: 100% !important;
+  }
+
+  .contact-form-grid {
+    width: 100% !important;
+  }
+
+  .submit-button {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    margin-top: 20px !important;
+  }
+
+  .checkbox-field {
+    position: relative !important;
+    bottom: auto !important;
+    margin-top: 10px !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container-8.footer {
+    padding: 2em 1em 0 !important;
+  }
+
+  .grid.is--footer {
+    flex-flow: column !important;
+    gap: 20px !important;
+  }
+
+  .grid_item.footer-form {
+    flex-flow: column !important;
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  .grid_item.is--50.footer-2 {
+    width: 100% !important;
+    min-width: 100% !important;
+    padding: 0 !important;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .container-8.footer {
+    padding: 1.5em 0.75em 0 !important;
+  }
+
+  .contact-form-grid {
+    flex-flow: column !important;
+    display: flex !important;
+    gap: 0 !important;
+  }
+
+  .contact-text-wrapper {
+    width: 100% !important;
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+  }
+
+  .text-field {
+    width: 100% !important;
+    padding: 1em 0 !important;
+    font-size: 14px !important;
+  }
+
+  .text-field::placeholder {
+    font-size: 14px !important;
+  }
+
+  .submit-button {
+    width: 100% !important;
+    font-size: 14px !important;
+    margin-top: 15px !important;
+  }
+
+  .checkbox-label {
+    font-size: 10px !important;
+    padding-left: 0.5em !important;
+  }
+
+  .checkbox-label.open {
+    font-size: 11px !important;
+  }
+
+  .div-block-12 {
+    padding-bottom: 2em !important;
+  }
+
+  .form {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+}
+/* ===== END RESPONSIVE CONTACT FORM FIX ===== */
+
 /* ===== HERO TEXT PADDING FIX ===== */
 .text-block-17 {
   padding-left: 20px !important;
