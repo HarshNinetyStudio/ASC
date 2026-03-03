@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer');
 const { body, validationResult } = require('express-validator');
 const path = require('path');
 
-const LOGO_URL = 'https://www.aftersportsconsultancy.com/asc-logo.png';
+const LOGO_URL = 'https://raw.githubusercontent.com/HarshNinetyStudio/ASC/main/asc-logo.png';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
